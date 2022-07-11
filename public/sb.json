@@ -1,0 +1,1578 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Sandbox",
+    "version": "1.0.0",
+    "description": "Danh sách API hệ thống SB",
+    "license": {}
+  },
+  "servers": [
+    {
+      "url": "http://egateway-api.topenpay.com/ite-pg-paygate",
+      "description": "[HUNG THINH] Paygate API"
+    },
+    {
+      "url": "http://egateway-api.topenpay.com/ite-pg/mm/no-auth",
+      "description": "[HUNG THINH] MM API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Order",
+      "description": "Tạo đơn hàng (dùng Paygate API)"
+    },
+    {
+      "name": "QR",
+      "description": "Thanh toán mã QR (dùng Paygate API)"
+    },
+    {
+      "name": "Service",
+      "description": "Đăng ký dịch vụ (dùng MM API)"
+    },
+    {
+      "name": "Common",
+      "description": "Lấy danh sách dropdown, tỉnh, huyện, xã... (dùng MM API)"
+    },
+    {
+      "name": "Bill",
+      "description": "Thanh toán hóa đơn (dùng Billing API)"
+    }
+  ],
+  "paths": {
+    "/paygate/create-order": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Tạo đơn hàng thanh toán",
+        "operationId": "paygate-create-order",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_code": {
+                    "type": "string",
+                    "example": "JVXEDFOGOC"
+                  },
+                  "address1": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "amount": {
+                    "type": "string",
+                    "example": "100000"
+                  },
+                  "cancel_url": {
+                    "type": "string",
+                    "example": "http://sb.ite.com.vn/sand-box/create-order"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "currency": {
+                    "type": "string",
+                    "example": "vnd"
+                  },
+                  "device": {
+                    "type": "string",
+                    "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                  },
+                  "issuer_code": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "mac": {
+                    "type": "string",
+                    "example": "29E998FE8D4859A354723A8A4D68A607"
+                  },
+                  "mac_type": {
+                    "type": "string",
+                    "example": "MD5"
+                  },
+                  "merchant_id": {
+                    "type": "string",
+                    "example": "102321"
+                  },
+                  "order_info": {
+                    "type": "string",
+                    "example": "thanh toán thử"
+                  },
+                  "order_reference": {
+                    "type": "string",
+                    "example": "2022061779134309641"
+                  },
+                  "pay_type": {
+                    "type": "string",
+                    "example": "pay"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "return_url": {
+                    "type": "string",
+                    "example": "http://sb.ite.com.vn/sand-box/create-order"
+                  },
+                  "token": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "user_id": {
+                    "type": "string",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "amount",
+                  "currency",
+                  "access_code",
+                  "mac_type",
+                  "mac",
+                  "merchant_id",
+                  "order_info",
+                  "order_reference",
+                  "return_url"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "session_id": {
+                      "type": "string",
+                      "example": "abdc47da4336699c2d5f380bac493c63"
+                    },
+                    "merchant_id": {
+                      "type": "string",
+                      "example": "102321"
+                    },
+                    "amount": {
+                      "type": "string",
+                      "example": "100000.00"
+                    },
+                    "currency": {
+                      "type": "string",
+                      "example": "vnd"
+                    },
+                    "expire_time": {
+                      "type": "string",
+                      "example": "17-06-2022 11:42:29"
+                    },
+                    "order_reference": {
+                      "type": "string",
+                      "example": "2022061779134309641"
+                    },
+                    "payment_url": {
+                      "type": "string",
+                      "example": "https://pp.ite.com.vn?session_id=abdc47da4336699c2d5f380bac493c63&check_sum=MBrwF5u7yvOzTykzniYBq43mjik="
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "example": "00"
+                    },
+                    "mac": {
+                      "type": "string",
+                      "example": "FAEFFB991E49CA2288385B326C4FA9AC"
+                    },
+                    "mac_type": {
+                      "type": "string",
+                      "example": "MD5"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/sandbox/merchant/addnew": {
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Thêm mới ĐVCNTT sandbox",
+        "operationId": "sandbox-merchant-addnew",
+        "parameters": [
+          {
+            "name": "Signature",
+            "in": "header",
+            "description": "Chữ ký",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "merchant": {
+                    "type": "object",
+                    "properties": {
+                      "merchant_name": {
+                        "type": "string",
+                        "example": "Công ty TNHH Quang Anh"
+                      },
+                      "merchant_biz_name": {
+                        "type": "string",
+                        "example": "CQA"
+                      },
+                      "agent_name": {
+                        "type": "string",
+                        "example": "Nguyen Van A"
+                      },
+                      "agent_phone": {
+                        "type": "string",
+                        "example": "0388456241"
+                      },
+                      "agent_email": {
+                        "type": "string",
+                        "example": "nva@gmail.com"
+                      },
+                      "company_type": {
+                        "type": "string",
+                        "example": "DNTN"
+                      },
+                      "business_type": {
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "4900"
+                      },
+                      "tax_code": {
+                        "type": "string",
+                        "example": "0000000000"
+                      },
+                      "province_id": {
+                        "type": "string",
+                        "example": "01"
+                      },
+                      "district_id": {
+                        "type": "string",
+                        "example": "001"
+                      },
+                      "commune_id": {
+                        "type": "string",
+                        "example": "00001"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": "12 Tố Hữu"
+                      },
+                      "website": {
+                        "type": "string",
+                        "example": "https://cqa.com.vn"
+                      }
+                    }
+                  },
+                  "device": {
+                    "type": "string",
+                    "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "merchant"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error_message": {
+                      "type": "string",
+                      "example": "Thêm mới ĐVCNTT thành công"
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "example": "00"
+                    },
+                    "merchant_id": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": "101210"
+                    },
+                    "agent_id": {
+                      "type": "string",
+                      "example": "17e62166fc8586dfa4d1bc0e1742c08b"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "address": {
+                          "type": "string",
+                          "example": "12 Tố Hữu"
+                        },
+                        "website": {
+                          "type": "string",
+                          "example": "https://cqa.com.vn"
+                        },
+                        "tax_code": {
+                          "type": "string",
+                          "example": "0000000000"
+                        },
+                        "agent_name": {
+                          "type": "string",
+                          "example": "Nguyen Van A"
+                        },
+                        "commune_id": {
+                          "type": "string",
+                          "example": "00001"
+                        },
+                        "agent_email": {
+                          "type": "string",
+                          "example": "nva@gmail.com"
+                        },
+                        "agent_phone": {
+                          "type": "string",
+                          "example": "0388456241"
+                        },
+                        "district_id": {
+                          "type": "string",
+                          "example": "001"
+                        },
+                        "province_id": {
+                          "type": "string",
+                          "example": "01"
+                        },
+                        "company_type": {
+                          "type": "string",
+                          "example": "DNTN"
+                        },
+                        "business_type": {
+                          "type": "integer",
+                          "format": "int32",
+                          "example": "4900"
+                        },
+                        "merchant_name": {
+                          "type": "string",
+                          "example": "Công ty TNHH Quang Anh"
+                        },
+                        "merchant_biz_name": {
+                          "type": "string",
+                          "example": "CQA"
+                        },
+                        "agent_identity_card": {
+                          "type": "string",
+                          "format": "nullable"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/sandbox/merchant/edit-payment-method": {
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Cấu hình PTTT cho ĐVCNTT sandbox",
+        "operationId": "sandbox-merchant-edit-payment-method",
+        "parameters": [
+          {
+            "name": "Signature",
+            "in": "header",
+            "description": "Chữ ký",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "merchant": {
+                    "type": "object",
+                    "properties": {
+                      "merchant_id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "101210"
+                      },
+                      "payment_method": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "method_id": {
+                              "type": "integer",
+                              "format": "int32",
+                              "example": "321"
+                            },
+                            "activated": {
+                              "type": "integer",
+                              "format": "int32",
+                              "example": "1"
+                            },
+                            "fee_method_code": {
+                              "type": "string",
+                              "example": "end_session"
+                            },
+                            "session_id": {
+                              "type": "string",
+                              "example": "1"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "device": {
+                    "type": "string",
+                    "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "merchant"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error_message": {
+                      "type": "string",
+                      "example": "Sửa thông tin cơ bản ĐVCNTT thành công"
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "example": "00"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/fee/listbox": {
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Lấy danh sách loại phí, cách thức trả/thu phí, phiên giao dịch…",
+        "operationId": "sandbox-fee-listbox",
+        "parameters": [
+          {
+            "name": "Signature",
+            "in": "header",
+            "description": "Chữ ký",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "example": "fee_charge_method"
+                  },
+                  "device": {
+                    "type": "string",
+                    "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "key"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "example": "00"
+                    },
+                    "list_data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "example": "end_month"
+                          },
+                          "desc": {
+                            "type": "string",
+                            "example": "Cuối tháng"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/fee/general/listbox": {
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "[HUNG THINH] Lấy danh sách loại phí, cách thức trả/thu phí, phiên giao dịch…",
+        "operationId": "sandbox-fee-general-listbox",
+        "parameters": [
+          {
+            "name": "Signature",
+            "in": "header",
+            "description": "Chữ ký",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "example": "fee_charge_method"
+                  },
+                  "device": {
+                    "type": "string",
+                    "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "key"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "example": "00"
+                    },
+                    "list_data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "example": "end_month"
+                          },
+                          "desc": {
+                            "type": "string",
+                            "example": "Cuối tháng"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/sandbox/listbox": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "Lấy danh sách dropdown",
+        "operationId": "sandbox-listbox",
+        "parameters": [
+          {
+            "name": "Signature",
+            "in": "header",
+            "description": "Chữ ký",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "example": "payment_method"
+                  },
+                  "device": {
+                    "type": "string",
+                    "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "key"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error_message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "example": "00"
+                    },
+                    "list_data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "desc": {
+                            "type": "string",
+                            "example": "Ví điện tử"
+                          },
+                          "value": {
+                            "type": "integer",
+                            "format": "int32",
+                            "example": "320"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/sandbox/address": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "Lấy danh sách tỉnh/huyện/xã",
+        "operationId": "sandbox-address",
+        "parameters": [
+          {
+            "name": "Signature",
+            "in": "header",
+            "description": "Chữ ký",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "example": "district"
+                  },
+                  "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                  },
+                  "device": {
+                    "type": "string",
+                    "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "key"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error_message": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "example": "00"
+                    },
+                    "list_data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "desc": {
+                            "type": "string",
+                            "example": "Quận Ba Đình"
+                          },
+                          "value": {
+                            "type": "string",
+                            "example": "001"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/billing/service/get-activate": {
+      "post": {
+        "tags": [
+          "Bill"
+        ],
+        "summary": "Danh sách dịch vụ",
+        "operationId": "billing-service-get-activate",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device": {
+                    "type": "object",
+                    "description": "Thông tin thiết bị client",
+                    "example": {
+                      "os": {
+                        "name": "Windows",
+                        "version": "windows-10"
+                      },
+                      "browser": {
+                        "name": "Chrome",
+                        "version": "91.0.4472.114"
+                      },
+                      "location": {
+                        "long": 0,
+                        "lat": 0
+                      }
+                    }
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "description": "Địa chỉ IP",
+                    "example": "118.70.124.48"
+                  },
+                  "access_code": {
+                    "type": "string",
+                    "description": "Mã kết nối",
+                    "example": "AHNGNDFGUGN"
+                  },
+                  "mac_type": {
+                    "type": "string",
+                    "description": "Loại mã hóa chữ ký (mặc định là MD5)",
+                    "example": "MD5"
+                  },
+                  "mac": {
+                    "type": "string",
+                    "description": "Chữ ký xác thực Merchant và toàn vẹn dữ liệu",
+                    "example": "4EEE8B71B02DCFBB6ECFCA84ABD370FA"
+                  },
+                  "terminal_code": {
+                    "type": "string",
+                    "description": "Mã terminal",
+                    "example": "100000"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "access_code",
+                  "mac_type",
+                  "mac",
+                  "terminal_code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_code": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "list_service": {
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/billing/service/get-list-provider": {
+      "post": {
+        "tags": [
+          "Bill"
+        ],
+        "summary": "Danh sách NCCDV",
+        "operationId": "billing-service-get-list-provider",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device": {
+                    "type": "object",
+                    "description": "Thông tin thiết bị client",
+                    "example": {
+                      "os": {
+                        "name": "Windows",
+                        "version": "windows-10"
+                      },
+                      "browser": {
+                        "name": "Chrome",
+                        "version": "91.0.4472.114"
+                      },
+                      "location": {
+                        "long": 0,
+                        "lat": 0
+                      }
+                    }
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "description": "Địa chỉ IP",
+                    "example": "118.70.124.48"
+                  },
+                  "access_code": {
+                    "type": "string",
+                    "description": "Mã kết nối",
+                    "example": "AHNGNDFGUGN"
+                  },
+                  "mac_type": {
+                    "type": "string",
+                    "description": "Loại mã hóa chữ ký (mặc định là MD5)",
+                    "example": "MD5"
+                  },
+                  "mac": {
+                    "type": "string",
+                    "description": "Chữ ký xác thực Merchant và toàn vẹn dữ liệu",
+                    "example": "4EEE8B71B02DCFBB6ECFCA84ABD370FA"
+                  },
+                  "terminal_code": {
+                    "type": "string",
+                    "description": "Mã terminal",
+                    "example": "100000"
+                  },
+                  "service_code": {
+                    "type": "string",
+                    "description": "Mã dịch vụ",
+                    "example": "INTERNET_SERVICE"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "access_code",
+                  "mac_type",
+                  "mac",
+                  "terminal_code", "service_code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_code": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "providers": {
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/order/get-info": {
+      "post": {
+        "tags": [
+          "Bill"
+        ],
+        "summary": "Thông tin hóa đơn",
+        "operationId": "billing-order-get-info",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device": {
+                    "type": "object",
+                    "description": "Thông tin thiết bị client",
+                    "example": {
+                      "os": {
+                        "name": "Windows",
+                        "version": "windows-10"
+                      },
+                      "browser": {
+                        "name": "Chrome",
+                        "version": "91.0.4472.114"
+                      },
+                      "location": {
+                        "long": 0,
+                        "lat": 0
+                      }
+                    }
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "description": "Địa chỉ IP",
+                    "example": "118.70.124.48"
+                  },
+                  "access_code": {
+                    "type": "string",
+                    "description": "Mã kết nối",
+                    "example": "AHNGNDFGUGN"
+                  },
+                  "mac_type": {
+                    "type": "string",
+                    "description": "Loại mã hóa chữ ký (mặc định là MD5)",
+                    "example": "MD5"
+                  },
+                  "mac": {
+                    "type": "string",
+                    "description": "Chữ ký xác thực Merchant và toàn vẹn dữ liệu",
+                    "example": "4EEE8B71B02DCFBB6ECFCA84ABD370FA"
+                  },
+                  "terminal_code": {
+                    "type": "string",
+                    "description": "Mã terminal",
+                    "example": "100000"
+                  },
+                  "service_code": {
+                    "type": "string",
+                    "description": "Mã dịch vụ",
+                    "example": "INTERNET_SERVICE"
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "description": "Mã khách hàng",
+                    "example": "12333"
+                  },
+                  "provider_code": {
+                    "type": "string",
+                    "description": "Mã NCCDV",
+                    "example": "FPT"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "access_code",
+                  "mac_type",
+                  "mac",
+                  "terminal_code", "service_code",
+                  "customer_id", "provider_code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_code": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/order/payment": {
+      "post": {
+        "tags": [
+          "Bill"
+        ],
+        "summary": "Thanh toán hóa đơn",
+        "operationId": "billing-order-payment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_code": {
+                    "type": "string",
+                    "description": "Mã kết nối",
+                    "example": "AHNGNDFGUGN"
+                  },
+                  "content_bill": {
+                    "type": "string",
+                    "description": "Nội dung hóa đơn",
+                    "example": ""
+                  },
+                  "currency": {
+                    "type": "string",
+                    "description": "Đồng tiền",
+                    "example": "VND"
+                  },
+                  "customer_address": {
+                    "type": "string",
+                    "description": "Địa chỉ khách hàng",
+                    "example": ""
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "description": "Mã khách hàng",
+                    "example": "123"
+                  },
+                  "customer_name": {
+                    "type": "string",
+                    "description": "Tên khách hàng",
+                    "example": ""
+                  },
+                  "device": {
+                    "type": "object",
+                    "description": "Thông tin thiết bị client",
+                    "example": {
+                      "os": {
+                        "name": "Windows",
+                        "version": "windows-10"
+                      },
+                      "browser": {
+                        "name": "Chrome",
+                        "version": "91.0.4472.114"
+                      },
+                      "location": {
+                        "long": 0,
+                        "lat": 0
+                      }
+                    }
+                  },
+                  "fee_amount": {
+                    "type": "number",
+                    "description": "Phí",
+                    "example": 0
+                  },
+                  "ip_address": {
+                    "type": "string",
+                    "description": "Địa chỉ IP",
+                    "example": "118.70.124.48"
+                  },
+                  "mac_type": {
+                    "type": "string",
+                    "description": "Loại mã hóa chữ ký (mặc định là MD5)",
+                    "example": "MD5"
+                  },
+                  "mac": {
+                    "type": "string",
+                    "description": "Chữ ký xác thực Merchant và toàn vẹn dữ liệu",
+                    "example": "4EEE8B71B02DCFBB6ECFCA84ABD370FA"
+                  },
+                  "payment_bank_name": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "payment_card_holder": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "payment_card_number": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "payment_card_type": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "payment_channel": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "payment_orders": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "description": "Số tiền",
+                          "example": 200000
+                        },
+                        "content": {
+                          "type": "string",
+                          "description": "",
+                          "example": "t6/2021"
+                        },
+                        "create_time": {
+                          "type": "string",
+                          "description": "Thời gian tạo",
+                          "example": "Jan 21, 2022 3:21:41 PM"
+                        },
+                        "customer_address": {
+                          "type": "string",
+                          "description": "Địa chỉ khách hàng",
+                          "example": "Hà Đông, Thanh Xuân, Hà Nội"
+                        },
+                        "customer_id": {
+                          "type": "string",
+                          "description": "Mã khách hàng",
+                          "example": "123"
+                        },
+                        "customer_name": {
+                          "type": "string",
+                          "description": "Tên khách hàng",
+                          "example": "Nguyễn Văn A"
+                        },
+                        "fee_amount": {
+                          "type": "number",
+                          "description": "Phí",
+                          "example": 0
+                        },
+                        "order_id": {
+                          "type": "string",
+                          "description": "Mã đơn hàng",
+                          "example": "beca907c-1775-4a18-8aec-2c3f4ae427f2"
+                        },
+                        "status": {
+                          "type": "number",
+                          "description": "",
+                          "example": 0
+                        },
+                        "update_time": {
+                          "type": "string",
+                          "description": "Thời gian cập nhật",
+                          "example": "Jan 21, 2022 3:21:41 PM"
+                        }
+                      },
+                      "required": [
+                        "amount",
+                        "content",
+                        "create_time", "customer_address", "customer_id",
+                        "customer_name", "fee_amount", "order_id", "status", "update_time"
+                      ]
+                    }
+                  },
+                  "terminal_code": {
+                    "type": "string",
+                    "description": "Mã terminal",
+                    "example": "100000"
+                  },
+                  "service_code": {
+                    "type": "string",
+                    "description": "Mã dịch vụ",
+                    "example": "INTERNET_SERVICE"
+                  },
+                  "provider_code": {
+                    "type": "string",
+                    "description": "Mã NCCDV",
+                    "example": "FPT"
+                  },
+                  "status_code": {
+                    "type": "string",
+                    "example": "00"
+                  },
+                  "total_amount": {
+                    "type": "number",
+                    "description": "Số tiền",
+                    "example": 200000
+                  },
+                  "trans_id": {
+                    "type": "string",
+                    "description": "Mã giao dịch",
+                    "example": "bc501fe872bf47878d35e3c7e8093daf"
+                  }
+                },
+                "required": [
+                  "device",
+                  "ip_address",
+                  "access_code",
+                  "mac_type",
+                  "mac",
+                  "terminal_code", "service_code", "trans_id",
+                  "customer_id", "provider_code", "payment_orders", "status_code", "total_amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_code": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,798 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Payment Page",
+        "version": "1.0.0",
+        "description": "Danh sách API hệ thống PP",
+        "license": {}
+    },
+    "servers": [
+        {
+            "url": "http://egateway-api.topenpay.com/ite-pg-paygate",
+            "description": "[HUNG THINH] Payment Gateway API"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Common",
+            "description": "Chung"
+        },
+        {
+            "name": "Ewallet",
+            "description": "Thanh toán bằng ví"
+        },
+        {
+            "name": "Internal Card",
+            "description": "Thanh toán bằng thẻ nội địa"
+        },
+        {
+            "name": "International Card",
+            "description": "Thanh toán bằng thẻ quốc tế"
+        }
+    ],
+    "paths": {
+        "/paygate/get-order": {
+            "post": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "Lấy thông tin đơn hàng",
+                "operationId": "paygate-get-order",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "check_sum": {
+                                        "type": "string",
+                                        "example": "nu/2MAuTrJrQAEQMKunmCJfClW8="
+                                    },
+                                    "device": {
+                                        "type": "string",
+                                        "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                                    },
+                                    "ip_address": {
+                                        "type": "string",
+                                        "example": "192.168.1.1"
+                                    },
+                                    "mac": {
+                                        "type": "string",
+                                        "example": "4594228DDDF777AE58EBF34A09B20C78"
+                                    },
+                                    "mac_type": {
+                                        "type": "string",
+                                        "example": "MD5"
+                                    },
+                                    "session_id": {
+                                        "type": "string",
+                                        "example": "4ae53d6d05725793d1eceb1813b5fcc1"
+                                    }
+                                },
+                                "required": [
+                                    "device",
+                                    "ip_address",
+                                    "mac_type", "mac", "session_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "merchant_id": {
+                                            "type": "string",
+                                            "example": "102321"
+                                        },
+                                        "amount": {
+                                            "type": "integer",
+                                            "format": "int32",
+                                            "example": "100000"
+                                        },
+                                        "order_info": {
+                                            "type": "string",
+                                            "example": "thanh toán thử"
+                                        },
+                                        "order_reference": {
+                                            "type": "string",
+                                            "example": "2022061746635906497"
+                                        },
+                                        "session_id": {
+                                            "type": "string",
+                                            "example": "4ae53d6d05725793d1eceb1813b5fcc1"
+                                        },
+                                        "qr_url": {
+                                            "type": "string",
+                                            "example": "https://paygate-apidev.ite.com.vn/ite-pg-qr/view/1655448734308173751"
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "example": "vnd"
+                                        },
+                                        "cancle_url": {
+                                            "type": "string",
+                                            "example": "http://sb.ite.com.vn/sand-box/create-order"
+                                        },
+                                        "return_url": {
+                                            "type": "string",
+                                            "example": "http://sb.ite.com.vn/sand-box/create-order?error_code=14&pg_amount=100000.00&pg_currency=vnd&pg_merchant_id=102321&pg_order_info=thanh toán thử&pg_order_reference=2022061746635906497&pg_payment_method=0&session_id=4ae53d6d05725793d1eceb1813b5fcc1&mac_type=SHA256&mac=910C3AEF6AF3C1D240CEAD778B4B7C967D0EA06B8FB52B813BC9EA332B6EEC62"
+                                        },
+                                        "pay_type": {
+                                            "type": "string",
+                                            "example": "pay"
+                                        },
+                                        "expired_time": {
+                                            "type": "string",
+                                            "example": "2022-06-17 14:07:14"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "error_code": {
+                                            "type": "string",
+                                            "example": "00"
+                                        },
+                                        "merchant_name": {
+                                            "type": "string",
+                                            "example": "ABCS"
+                                        },
+                                        "payment_method": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "format": "int32",
+                                                        "example": "320"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Ví điện tử"
+                                                    },
+                                                    "logo": {
+                                                        "type": "string",
+                                                        "example": "http://103.57.211.14:11932/vtl-pg/mm/media/payment_method/logo/ea63543c744889f24edcc96df95e2c04.jpg"
+                                                    },
+                                                    "index": {
+                                                        "type": "integer",
+                                                        "format": "int32",
+                                                        "example": "1"
+                                                    },
+                                                    "issuer": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "code": {
+                                                                    "type": "string",
+                                                                    "example": "970422"
+                                                                },
+                                                                "bin": {
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "type": "string",
+                                                                        "example": "970422"
+                                                                    }
+                                                                },
+                                                                "bizname": {
+                                                                    "type": "string",
+                                                                    "format": "nullable"
+                                                                },
+                                                                "verify_payment_info_step": {
+                                                                    "type": "string",
+                                                                    "example": "internal"
+                                                                },
+                                                                "logo": {
+                                                                    "type": "string",
+                                                                    "example": "https://paygate-apidev.ite.com.vn/ite-pg/mm/no-auth/media/issuer/logo/bffd77603398737bc10fec92eb86aa2a"
+                                                                },
+                                                                "issuer_params": {
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                        "hint": {
+                                                                            "type": "string",
+                                                                            "example": "MBB"
+                                                                        },
+                                                                        "params": {
+                                                                            "type": "array",
+                                                                            "items": {
+                                                                                "type": "object",
+                                                                                "properties": {
+                                                                                    "holder_name": {
+                                                                                        "type": "string",
+                                                                                        "example": "holder_name_label"
+                                                                                    },
+                                                                                    "require": {
+                                                                                        "type": "integer",
+                                                                                        "format": "int32",
+                                                                                        "example": "1"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/paygate/transaction-cancel": {
+            "post": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "Hủy thanh toán",
+                "operationId": "paygate-transaction-cancel",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "session_id": {
+                                        "type": "string",
+                                        "example": "0f6b0b7d452560eed017c15d9038efad"
+                                    },
+                                    "merchant_id": {
+                                        "type": "string",
+                                        "example": "102431"
+                                    },
+                                    "device": {
+                                        "type": "string",
+                                        "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                                    },
+                                    "mac_type": {
+                                        "type": "string",
+                                        "example": "MD5"
+                                    },
+                                    "mac": {
+                                        "type": "string",
+                                        "example": "5981B7C449454AE6FB80678AA3068E79"
+                                    }
+                                },
+                                "required": [
+                                    "device", "mac",
+                                    "mac_type", "merchant_id", "session_id", "transaction_reference"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "return_url": {
+                                            "type": "string",
+                                            "example": "https://hub-uat-sb.ite.com.vn/sand-box/create-order?error_code=18&pg_amount=100000.00&pg_card_holder_name=null&pg_card_number=null&pg_currency=vnd&pg_issuer_code=null&pg_issuer_response_code=null&pg_issuer_txn_reference=null&pg_merchant_id=102431&pg_order_info=thanh toán thử&pg_order_reference=2022061781932628011&pg_payment_channel=online&pg_payment_method=0&pg_paytime=null&pg_transaction_number=2022168000006&session_id=0f6b0b7d452560eed017c15d9038efad&token_issuer_code=null&tokenization=null&mac_type=SHA256&mac=14BF619EF2620B83851EEAC2EC66646EA0354129BA4E8F347CE892701798AFF3"
+                                        },
+                                        "error_code": {
+                                            "type": "string",
+                                            "example": "00"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/paygate/transaction-result": {
+            "post": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "Kiểm tra trạng thái giao dịch thanh toán và thông báo kết quả giao dịch cho khách hàng",
+                "operationId": "paygate-transaction-result",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "merchant_id": {
+                                        "type": "string",
+                                        "example": "102321"
+                                    },
+                                    "session_id": {
+                                        "type": "string",
+                                        "example": "a58d86f36038c48239cb5dfbdabe506b"
+                                    },
+                                    "transaction_reference": {
+                                        "type": "string",
+                                        "example": "322c6ef41c87e8f5bc4b9a74a5b719b4"
+                                    },
+                                    "checksum": {
+                                        "type": "string",
+                                        "example": "af94afa8a2f2e8f6ebd5629788054795"
+                                    },
+                                    "mac": {
+                                        "type": "string",
+                                        "example": "021786F26F48EDAC0E3FB7C09B3EB2BF"
+                                    }
+                                },
+                                "required": [
+                                    "checksum", "error_code",
+                                    "mac", "session_id", "transaction_reference"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "return_url": {
+                                            "type": "string",
+                                            "example": "http://sb.ite.com.vn/sand-box/create-order?error_code=00&pg_amount=100000.00&pg_currency=vnd&pg_issuer_code=970419&pg_issuer_response_code=00&pg_issuer_txn_reference=13775147&pg_merchant_id=102321&pg_order_info=thanh toán thử&pg_order_reference=2022061785916795130&pg_payment_channel=online&pg_payment_method=321&pg_paytime=06181020145006&pg_transaction_number=2022168000013&session_id=a58d86f36038c48239cb5dfbdabe506b&token_issuer_code=970419&tokenization={}&mac_type=SHA256&mac=BA3921B7C2D4B7997BBB38B402A02C95832103CB101F13789A991E008BA83DCE"
+                                        },
+                                        "error_code": {
+                                            "type": "string",
+                                            "example": "00"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/paygate/check-pay-step": {
+            "post": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "Kiểm tra xem sau khi chọn bank thì tiếp theo sẽ làm gì?",
+                "operationId": "paygate-check-pay-step",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "device": {
+                                        "type": "string",
+                                        "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                                    },
+                                    "issuer_code": {
+                                        "type": "string",
+                                        "example": "970422"
+                                    },
+                                    "mac": {
+                                        "type": "string",
+                                        "example": "9112F4A3A342DC6968CB8AF69F8321CC"
+                                    },
+                                    "mac_type": {
+                                        "type": "string",
+                                        "example": "MD5"
+                                    },
+                                    "merchant_id": {
+                                        "type": "string",
+                                        "example": "102321"
+                                    },
+                                    "method_id": {
+                                        "type": "string",
+                                        "example": "321"
+                                    },
+                                    "session_id": {
+                                        "type": "string",
+                                        "example": "c0dd765bc33d90e1f065d5b3ac94583d"
+                                    }
+                                },
+                                "required": [
+                                    "device", "mac",
+                                    "mac_type", "issuer_code", "merchant_id", "method_id", "session_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "session_id": {
+                                            "type": "string",
+                                            "example": "c0dd765bc33d90e1f065d5b3ac94583d"
+                                        },
+                                        "merchant_id": {
+                                            "type": "string",
+                                            "example": "102321"
+                                        },
+                                        "connection_type": {
+                                            "type": "string",
+                                            "example": "merchant_hosted"
+                                        },
+                                        "error_code": {
+                                            "type": "string",
+                                            "example": "00"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/cybs/flex/generate-key": {
+            "post": {
+                "tags": [
+                    "International Card"
+                ],
+                "summary": "Generate flex token key",
+                "operationId": "cybs-flex-generate-key",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "session_id": {
+                                        "type": "string",
+                                        "example": "39b592c50548b9c084dd7e3da13d1245"
+                                    },
+                                    "merchant_id": {
+                                        "type": "string",
+                                        "example": "102431"
+                                    },
+                                    "device": {
+                                        "type": "string",
+                                        "example": "os={name=Windows, version=windows-10}&browser={name=Chrome, version=90.0.4430.85}&location={long=0, lat=0}"
+                                    },
+                                    "cutomer_ip": {
+                                        "type": "string",
+                                        "example": "::ffff:103.150.241.156"
+                                    },
+                                    "mac_type": {
+                                        "type": "string",
+                                        "example": "MD5"
+                                    },
+                                    "mac": {
+                                        "type": "string",
+                                        "example": "6F3763518FA7DAF2A4016C5917257F4B"
+                                    }
+                                },
+                                "required": [
+                                    "device", "mac",
+                                    "mac_type", "cutomer_ip", "merchant_id", "session_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJraWQiOiJ6dSIsImFsZyI6IlJTMjU2In0.eyJmbHgiOnsicGF0aCI6Ii9mbGV4L3YyL3Rva2VucyIsImRhdGEiOiJPajQxYmFrUXB5SjcwZ1dNbndnYzN4QUFFT3hWM3pvT1BiajkzT0FBdHpRYVZjT2lrWDRRU2kzSGMzeXozWjJ0UHlkS1V6ZnRDMm43WWFuaW52dkNGUncwNklWaENvMCtnRnJpTlhCQURKRzV4YlBDRmFvaU50SkpBZHNEcDVFQVF5Y1QiLCJvcmlnaW4iOiJodHRwczovL3Rlc3RmbGV4LmN5YmVyc291cmNlLmNvbSIsImp3ayI6eyJrdHkiOiJSU0EiLCJlIjoiQVFBQiIsInVzZSI6ImVuYyIsIm4iOiJqQUIwc0R0MzcyQWswRjJ5SXBGYUktSjQ2UXdWTXdHRV9lcVk4aDNDMmlSNmhaRGhjdFU5WWh4SG12NlVacS1Bd3FBLVJvOVktNjVxaTZKQmVvZGZhRm9JX29TNlVqLWxvT2pZZ204U1NGQk5BQjdmbXU4QXJIX0hRTE9KVHdqSTVjcGZQZGdQVWpNTkF6UW5aXzRhMVZwOTE4OHNPOEkzRXpmQkdQdFJVUVB4NGcxRzM5YXhILVE4M3l4UDhFOGhaVzFSaUhjT2JSZEdQbUtQOGhXcnlWaThELTZxMlowTDBfdXdMeGVfaVdsaWxVcHFkRV9SeGtyVGx2N1V6c2dWcnpVZ2xvNGtRLWJ1bklfak1xdjZoY2ZIR1pwdzZleEp2WUR1NnJGQUM3N3gzYU9RNV9zZmRwb1o3VmhuZjF0dU8xT0tpSTRnSkVyeDF1cmVkZ0ZRQlEiLCJraWQiOiIwOHJVTm5RQzJlMFVCNHg4ZXdHc2I2NE80Q2lrUU8wMyJ9fSwiY3R4IjpbeyJkYXRhIjp7InRhcmdldE9yaWdpbnMiOlsiaHR0cHM6Ly9odWItdWF0LXBwLml0ZS5jb20udm4iXSwibWZPcmlnaW4iOiJodHRwczovL3Rlc3RmbGV4LmN5YmVyc291cmNlLmNvbSJ9LCJ0eXBlIjoibWYtMC4xMS4wIn1dLCJpc3MiOiJGbGV4IEFQSSIsImV4cCI6MTY1NTQ1MDI1NCwiaWF0IjoxNjU1NDQ5MzU0LCJqdGkiOiJqMnUzYlhDZEkzbGZoTGpFIn0.aoekc-Zv3GLqM36yN_O0s5bTCaffc-_Yi5JUXEI9AY_bO12ZIIauLSPNvizxUDdDnaDqNFyz5hPQM7m69XFxy1GqGRTCSKhZOaXb_lwU6ctBQ-DA8W1ksrfv8HgoA4K8SSEfx44MwPNjvIbZuxoK_cC1GQcnPYAuy4ReoB9fg-ivA_v6pgPfVScDkqhWyr4WN8EsVW1eeEnoXursjqtgxsBE-ExoVmW3jKtQb9xor7dYDT5F9HX0Tn6vCfHEiuX2jBH-OKtHKDQzFpm3DyQ7IyOm6hgAauzf2Vo2uk8-1eFNyqfOOrPikGFHvV6ulp9lblfZ9FtlOEhKgPBv24a8Gw"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "error_code": {
+                                            "type": "string",
+                                            "example": "00"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/cybs/flex/authentication-setups": {
+            "post": {
+                "tags": [
+                    "International Card"
+                ],
+                "summary": "Yêu cầu tạo môi trường thanh toán",
+                "operationId": "cybs-flex-generate-key",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "session_id": {
+                                        "type": "string",
+                                        "example": "39b592c50548b9c084dd7e3da13d1245"
+                                    },
+                                    "method_id": {
+                                        "type": "integer",
+                                        "format": "int32",
+                                        "example": "322"
+                                    },
+                                    "merchant_id": {
+                                        "type": "string",
+                                        "example": "102431"
+                                    },
+                                    "transient_token": {
+                                        "type": "string",
+                                        "example": "eyJraWQiOiIwOHJVTm5RQzJlMFVCNHg4ZXdHc2I2NE80Q2lrUU8wMyIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjp7ImV4cGlyYXRpb25ZZWFyIjoiMjAyNSIsIm51bWJlciI6IjQ0NTY1M1hYWFhYWDEwMDUiLCJleHBpcmF0aW9uTW9udGgiOiIxMiIsInR5cGUiOiIwMDEifSwiaXNzIjoiRmxleC8wNyIsImV4cCI6MTY1NTQ1MDQ3OSwidHlwZSI6Im1mLTAuMTEuMCIsImlhdCI6MTY1NTQ0OTU3OSwianRpIjoiMUUzUzVZQVBHQjdBT0ZSN1pBREkyRVBONFdGMUZQWlg5RDNEVVVUNlk5Uk1XT0IzMzlBVjYyQUMyQjZGQkMxRiIsImNvbnRlbnQiOnsicGF5bWVudEluZm9ybWF0aW9uIjp7ImNhcmQiOnsiZXhwaXJhdGlvblllYXIiOnsidmFsdWUiOiIyMDI1In0sIm51bWJlciI6eyJtYXNrZWRWYWx1ZSI6IlhYWFhYWFhYWFhYWDEwMDUiLCJiaW4iOiI0NDU2NTMifSwic2VjdXJpdHlDb2RlIjp7fSwiZXhwaXJhdGlvbk1vbnRoIjp7InZhbHVlIjoiMTIifSwidHlwZSI6eyJ2YWx1ZSI6IjAwMSJ9fX19fQ.erCjN8qiG7clzu7w7FujfP-laAjOp_8PmV8buVXpC9OFGyOjz9BLY2YUc2gtDTTFigk2hBxDdopnN9LvKixr1u8vV2Mwm78HnEmsO9J3VSELVfjaij-L6tiSHYfw0kHd5X5VDND3aplVKdev-vs1d0lQo0E53BGQpybL8EP7QcYwWTG5OacVXe9AdjdIYmVrzsYFSCIQ1iQwceTnhAPb1pnuVJ7abj-Zu9vlHzNYYIFGe9FkYQL8g9Ujp8-pNoFKx_SJB4ru3opDZ2Qhqm8sqFServ9sprWqJkwnUTfiNJNrxVOEWGfk1-L1ql7EBPWYDBjT6lPJSi5uvWVMzAQoSw"
+                                    },
+                                    "device": {
+                                        "type": "string",
+                                        "example": "os={name=Windows, version=windows-10}&browser={name=Chrome, version=90.0.4430.85}&location={long=0, lat=0}"
+                                    },
+                                    "mac_type": {
+                                        "type": "string",
+                                        "example": "MD5"
+                                    },
+                                    "mac": {
+                                        "type": "string",
+                                        "example": "A84B1DD8CFEFEF5401AF9A58ED420EE0"
+                                    }
+                                },
+                                "required": [
+                                    "device", "mac",
+                                    "mac_type", "method_id", "merchant_id", "session_id", "transient_token"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjNGIxZDQxZC1mNDgzLTRjMWMtODI0YS02YmFkOTUxOGFjOGQiLCJpYXQiOjE2NTU0NDk1ODAsImlzcyI6IjVkZDgzYmYwMGU0MjNkMTQ5OGRjYmFjYSIsImV4cCI6MTY1NTQ1MzE4MCwiT3JnVW5pdElkIjoiNjE0YzM0NWI1MjYwZTIxMTcyNWU3NGZiIiwiUmVmZXJlbmNlSWQiOiI2MWE4NTg2ZS04MmFlLTRmMGItYjE0Yy1jNGI2ODY3MDczN2YifQ.OB5ADpvnv_R5YaMD5Its9QDf1V8_0zl-bWEIolxzcQg"
+                                        },
+                                        "device_data_collection_url": {
+                                            "type": "string",
+                                            "example": "https://centinelapistag.cardinalcommerce.com/V1/Cruise/Collect"
+                                        },
+                                        "transaction_reference": {
+                                            "type": "string",
+                                            "example": "06cf419c141751ebbe5e9c3c74145c04"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "error_code": {
+                                            "type": "string",
+                                            "example": "00"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/cybs/flex/authentication-enroll-combine": {
+            "post": {
+                "tags": [
+                    "International Card"
+                ],
+                "summary": "Thanh toán với thẻ quốc tế cybersource",
+                "operationId": "cybs-flex-authentication-enroll-combine",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "session_id": {
+                                        "type": "string",
+                                        "example": "39b592c50548b9c084dd7e3da13d1245"
+                                    },
+                                    "merchant_id": {
+                                        "type": "string",
+                                        "example": "102431"
+                                    },
+                                    "device_data_collection_reponse": {
+                                        "type": "string",
+                                        "example": "{\"MessageType\":\"profile.completed\",\"SessionId\":\"61a8586e-82ae-4f0b-b14c-c4b68670737f\",\"Status\":true}"
+                                    },
+                                    "transaction_reference": {
+                                        "type": "string",
+                                        "example": "06cf419c141751ebbe5e9c3c74145c04"
+                                    },
+                                    "device": {
+                                        "type": "string",
+                                        "example": "os={name=Windows, version=windows-10}, browser={name=Chrome, version=102.0.0.0}, location={long=0, lat=0}"
+                                    },
+                                    "mac_type": {
+                                        "type": "string",
+                                        "example": "MD5"
+                                    },
+                                    "mac": {
+                                        "type": "string",
+                                        "example": "1865180C8D01A996A9DD3B4727616CCD"
+                                    }
+                                },
+                                "required": [
+                                    "device", "mac",
+                                    "mac_type", "device_data_collection_reponse", "merchant_id", "transaction_reference", "session_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "otp_channel": {
+                                            "type": "string",
+                                            "example": "no_confirm"
+                                        },
+                                        "session_id": {
+                                            "type": "string",
+                                            "example": "39b592c50548b9c084dd7e3da13d1245"
+                                        },
+                                        "transaction_reference": {
+                                            "type": "string",
+                                            "example": "06cf419c141751ebbe5e9c3c74145c04"
+                                        },
+                                        "merchant_id": {
+                                            "type": "string",
+                                            "example": "102431"
+                                        },
+                                        "return_url": {
+                                            "type": "string",
+                                            "example": "https://hub-uat-sb.ite.com.vn/sand-box/create-order?error_code=00&pg_amount=100000.00&pg_card_holder_name=null&pg_card_number=445653XXXXXX1005&pg_currency=vnd&pg_issuer_code=HUBSTBVI&pg_issuer_response_code=AUTHORIZED&pg_issuer_txn_reference=6554495830336151203954&pg_merchant_id=102431&pg_order_info=thanh toán thử&pg_order_reference=2022061797160886402&pg_payment_channel=online&pg_payment_method=322&pg_paytime=null&pg_transaction_number=2022168000003&session_id=39b592c50548b9c084dd7e3da13d1245&token_issuer_code=444444&tokenization=null&mac_type=SHA256&mac=A81377213B32CD4261866DCB2C55195F8749F3526BD7EE4D6AE507B1E8D4DE2B"
+                                        },
+                                        "error_code": {
+                                            "type": "string",
+                                            "example": "00"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    }
+}

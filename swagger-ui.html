@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ITE Api Documentation</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css">
+    <link rel="icon" href="ite-logo.jpg" type="image/gif" sizes="16x16">
+</head>
+
+<body>
+    <div id="swagger-ui"></div>
+    <script src="./swagger-js/swagger-ui-standalone-preset.js"></script>
+    <script src="./swagger-js/swagger-ui-bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+    <script>
+        (function () {
+            SwaggerUIBundle({
+                urls: [
+                    { url: "mm.json", name: "MM" },
+                    { url: "ma.json", name: "MA" },
+                    { url: "aa.json", name: "AA" },
+                    { url: "sb.json", name: "SB" },
+                    { url: "pp.json", name: "PP" }
+                ],
+                dom_id: '#swagger-ui',
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                layout: "StandaloneLayout",
+                requestInterceptor: (req) => {
+                    req.headers["Access-Control-Allow-Origin"] = "*";
+                    req.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, PATCH, DELETE";
+                    req.headers["Access-Control-Allow-Headers"] = "*";
+                    req.headers["Access-Control-Allow-Credentials"] = "true";
+                    return req;
+                }
+            });
+        })();
+
+    </script>
+</body>
+
+</html>
